@@ -1,0 +1,17 @@
+//Create a directory in hadoop for the project
+hadoop fs -mkdir /insurance_marketplace
+
+//Start the HDFS
+hadoop start-all.sh
+
+//Got an error in performing the below command that the Name Node is in safe mode, checked and disabled using below commands
+hdfs dfsadmin -safemode get
+hdfs dfsadmin -safemode leave
+
+//File command to copy files from local file system to Hadoop directory
+hadoop fs -copyFromLocal /home/praneeth/Downloads/insurance_marketplace_dataset/BenefitsCostSharing.csv /insurance_marketplace
+
+//Run the Map Reduce Jar files
+hadoop jar /home/praneeth/Downloads/Big-Data-master/TopTenCancerType/TopCancerType/dist/TopCancerType.jar /home/praneeth/Downloads/Big-Data-master/TopTenCancerType/input /home/praneeth/Downloads/Big-Data-master/TopTenCancerType/output
+
+//
