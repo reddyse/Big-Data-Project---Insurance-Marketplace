@@ -14,4 +14,11 @@ hadoop fs -copyFromLocal /home/praneeth/Downloads/insurance_marketplace_dataset/
 //Run the Map Reduce Jar files
 hadoop jar /home/praneeth/Downloads/Big-Data-master/TopTenCancerType/TopCancerType/dist/TopCancerType.jar /home/praneeth/Downloads/Big-Data-master/TopTenCancerType/input /home/praneeth/Downloads/Big-Data-master/TopTenCancerType/output
 
-//
+//Update the sources list with the mirror of the R-Studio('deb http://mirrors.asnet.am/ubuntu/ xenial main')
+sudo nano /etc/apt/sources.list
+
+//Update the apt-get so that changes are reflected
+sudo apt-get update
+
+//Install R-Studio for pre-processing data
+sudo apt-get install r-base
