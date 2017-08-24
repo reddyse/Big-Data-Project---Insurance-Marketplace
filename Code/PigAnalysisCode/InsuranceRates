@@ -1,0 +1,45 @@
+MyData = load '/home/praneeth/Downloads/insurance_marketplace_dataset/CleanData/RateClean.csv' Using PigStorage(',') As (
+ID:chararray,
+BusinessYear:int,
+StateCode:chararray,
+IssuerId:chararray,
+SourceName:chararray,
+VersionNum:chararray,
+IssuerId2:chararray,
+FederalTIN:chararray,
+RateExpirationDate:chararray,
+PlanId:chararray,
+RatingAreaId:chararray,
+Tobacco:chararray,
+Age:chararray,
+IndividualRate:int,
+IndividualTobaccoRate:chararray,
+Couple:chararray,
+PrimarySubscriberAndOneDependent:chararray,
+PrimarySubscriberAndTwoDependents:chararray,
+PrimarySubscriberAndThreeOrMoreDependents:chararray,
+CoupleAndOneDependent:chararray,
+CoupleAndTwoDependents:chararray,
+CoupleAndThreeOrMoreDependents:chararray,
+RowNumber:chararray);
+
+
+--Analysis 1 - How rates varied across states over the years!
+
+FilterData = FILTER MyData BY BusinessYear==2014;
+GroupData = Group FilterData By (StateCode);
+Analysis12014 = FOREACH GroupData GENERATE flatten(group) as (StateCode), AVG($1.IndividualRate); 
+STORE Analysis12014 INTO '/home/praneeth/Downloads/insurance_marketplace/output/' USING PigStorage(',');
+
+FilterData = FILTER MyData BY BusinessYear==2015;
+GroupData = Group FilterData By (StateCode);
+Analysis12015 = FOREACH GroupData GENERATE flatten(group) as (StateCode), AVG($1.IndividualRate); 
+--Dump countdata;
+STORE Analysis12015 INTO '/home/praneeth/Downloads/insurance_marketplace_dataset/Analysis1/' USING PigStorage(',');
+
+FilterData = FILTER MyData BY BusinessYear='2016'
+GroupData = Group FilterData By (StateCode);
+Analysis12016 = FOREACH GroupData GENERATE flatten(group) as (StateCode), AVG($1.IndividualRate); 
+--Dump countdata;
+STORE Analysis12016 INTO '/home/praneeth/Downloads/insurance_marketplace/output/' USING PigStorage(',');
+
